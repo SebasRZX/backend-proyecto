@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 const usuariosRoutes = require('./routes/usuarios');
 const categoriasRouter = require('./routes/categorias');
 const productosRoutes = require('./routes/productos');
@@ -14,35 +15,31 @@ require('dotenv').config();
 
 const app = express();
 
-const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:3000'];
+// ⚠️ Reemplazar esto en producción
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
 app.use(cors({
-  origin: function(origin, callback){
-    if(!origin) return callback(null, true); // permitir peticiones sin origen (Postman, curl)
-    if(allowedOrigins.indexOf(origin) === -1){
-      const msg = 'La política CORS no permite acceso desde este origen.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true, // permite enviar cookies
+  origin: CLIENT_ORIGIN,
+  credentials: true,
 }));
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/api/usuarios', usuariosRoutes);
-app.use('/api/categorias', categoriasRouter);
-app.use('/api/productos', productosRoutes);
-app.use('/api/ventas', ventasRoutes);
-app.use('/api/comandas', comandasRoutes);
-app.use('/api/eventos', eventosRoutes);
-app.use('/api/turnos', turnosRoutes);
-app.use('/api/caja', cajaRoutes);
+// Rutas API
+app.use('/usuarios', usuariosRoutes);
+app.use('/categorias', categoriasRouter);
+app.use('/productos', productosRoutes);
+app.use('/ventas', ventasRoutes);
+app.use('/comandas', comandasRoutes);
+app.use('/eventos', eventosRoutes);
+app.use('/turnos', turnosRoutes);
+app.use('/caja', cajaRoutes);
 
-// Servir imágenes u otros archivos estáticos (opcional)
-app.use('/uploads', express.static('uploads'));
+// Archivos estáticos (p. ej., imágenes subidas)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Puerto dinámico para Azure
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);

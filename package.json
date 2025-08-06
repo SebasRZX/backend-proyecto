@@ -1,13 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend API para mi aplicación",
+  "description": "Backend Express para producción",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   },
   "keywords": [],
   "author": "",
@@ -24,3 +21,4 @@
     "pdfkit": "^0.17.1"
   }
 }
+
