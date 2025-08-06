@@ -27,14 +27,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Rutas API
-app.use('/usuarios', usuariosRoutes);
-app.use('/categorias', categoriasRouter);
-app.use('/productos', productosRoutes);
-app.use('/ventas', ventasRoutes);
-app.use('/comandas', comandasRoutes);
-app.use('/eventos', eventosRoutes);
-app.use('/turnos', turnosRoutes);
-app.use('/caja', cajaRoutes);
+app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/categorias', categoriasRouter);
+app.use('/api/productos', productosRoutes);
+app.use('/api/ventas', ventasRoutes);
+app.use('/api/comandas', comandasRoutes);
+app.use('/api/eventos', eventosRoutes);
+app.use('/api/turnos', turnosRoutes);
+app.use('/api/caja', cajaRoutes);
 
 // Archivos estáticos (p. ej., imágenes subidas)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
